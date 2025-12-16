@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metamorfosis - Demo</title>
 
+    <!-- PWA: Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PWA: Apple icon -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+    <!-- PWA: Color barra superior Android -->
+    <meta name="theme-color" content="#0A1A40">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>METAMORFOSIS</h1>
+    <nav>
+        <button id="btnAuth">Inicio / Registro</button>
+
+        <!-- FEED oculto inicialmente para evitar acceso previo -->
+        <button id="btnFeed" class="hide" data-restrict="needsEmail">Feed</button>
+
+        <!-- Opciones solo para administradoras -->
+        <button id="btnUserPanel" class="hide">Gestionar usuarias</button>
+        <button id="btnInbox" class="hide">Mensajes recibidos</button>
+
+        <!-- Nuevo: editar mi perfil -->
+        <button id="btnEditProfile" class="hide">Editar perfil</button>
+
+        <!-- Crear post (admin + moderadora) -->
+        <button id="btnNewPost" class="hide">Nuevo Post</button>
+
+        <!-- Cambiar logo -->
+        <button id="btnLogoPanel" class="hide">Cambiar logo</button>
+
+        <button id="btnLogout" class="hide">Cerrar sesión</button>
+    </nav>
+</header>
+
+<!-- Contenedor donde se mostrará el logo -->
+<img id="appLogo" class="logo" style="display:none; max-width:140px; margin:12px auto; display:block;">
+
+<main>
+
+    <!-- AUTH -->
+    <section id="authSection" class="panel">
+        <h2>Iniciar sesión</h2>
+        <form id="loginForm">
+            <input type="text" id="loginUser" placeholder="Usuario" required>
+            <input type="password" id="loginPass" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+        </form>
+
+        <h2>Registrarse</h2>
+        <form id="registerForm">
+            <input type="text" id="regUser" placeholder="Usuario" required>
+            <input type="password" id="regPass" placeholder="Contraseña" required>
+            <button type="submit">Registrarse</button>
+        </form>
+    </section>
+
+    <!-- FEED (oculto hasta login válido) -->
+    <section id="feedSection" class="panel hide" data-restrict="needsEmail">
+        <h2>Feed</h2>
+
+        <div id="postsContainer"></div>
+
+        <!-- Botón flotante solo para estudiantes -->
+        <button id="floatingMessageBtn" class="floating-btn hide">✉</button>
+    </section>
+
+    <!-- GESTIÓN DE USUARIAS -->
+    <section id="userManagementSection" class="panel hide">
+        <h2>Gestión de usuarias</h2>
+        <p>Aquí puedes ascender usuarias a moderadoras o administradoras.</p>
+
+        <!-- 🟨 NUEVO: Configuración de dominios -->
+        <div id="domainConfigPanel" class="domain-panel">
+            <h3>Dominios permitidos para nuevos registros</h3>
+
+            <ul id="allowedDomainsList"></ul>
+
+            <input type="text" id="newDomainInput" placeholder="Ej: @colegio.edu.co">
+            <button id="addDomainBtn">Agregar dominio</button>
+        </div>
+        <!-- 🟨 FIN NUEVO -->
+
+        <div id="userList"></div>
+    </section>
+
+    <!-- COMENTARIOS -->
+    <section id="commentsPanel" class="panel hide">
+        <h2>Comentarios</h2>
+
+        <div id="approvedComments"></div>
+
+        <textarea id="commentText" placeholder="Escribe un comentario..."></textarea>
+        <button id="sendCommentBtn">Enviar comentario</button>
+
+        <br><br>
+        <button id="closeCommentsBtn">Cerrar</button>
+    </section>
+
+    <!-- NUEVO POST -->
+    <section id="newPostSection" class="panel hide">
+        <h2>Crear publicación</h2>
+        <form id="postForm">
+            <input type="text" id="postTitle" placeholder="Título" required>
+            <textarea id="postBody" placeholder="Contenido..." required></textarea>
+            <input type="file" id="postMedia" accept="image/*,video/mp4,application/pdf">
+            <button type="submit">Publicar</button>
+        </form>
+    </section>
+
+    <!-- ENVIAR MENSAJE PRIVADO -->
+    <section id="sendMessageSection" class="panel hide">
+        <h2>Enviar mensaje privado</h2>
+
+        <label><input type="checkbox" id="isAnonymous"> Enviar como anónimo</label>
+
+        <input type="text" id="senderName" placeholder="Tu nombre si no es anónimo">
+
+        <input type="text" id="messageSubject" placeholder="Asunto">
+        <textarea id="messageBody" placeholder="Escribe tu mensaje..."></textarea>
+
+        <label>Adjuntar archivo:</label>
+        <input type="file" id="messageFile" accept="image/*,video/mp4,application/pdf">
+
+        <button id="btnSubmitMessage">Enviar</button>
+        <button id="btnCancelMessage">Cancelar</button>
+    </section>
+
+    <!-- BANDEJA ADMIN -->
+    <section id="inboxSection" class="panel hide">
+        <h2>Mensajes recibidos</h2>
+        <div id="inboxList"></div>
+        <button id="btnCloseInbox">Cerrar</button>
+    </section>
+
+    <!-- EDITAR PERFIL -->
+    <section id="editProfileSection" class="panel hide">
+        <h2>Editar mi perfil</h2>
+
+        <input type="text" id="editUsernameInput" placeholder="Nuevo nombre de usuario">
+
+        <button id="btnSaveUsername">Guardar cambios</button>
+        <button id="btnCancelEditProfile">Cancelar</button>
+    </section>
+
+    <!-- CAMBIAR LOGO -->
+    <section id="logoSection" class="panel hide">
+        <h2>Cambiar logo</h2>
+        <input type="file" id="logoFile" accept="image/*">
+        <button id="saveLogoBtn">Guardar</button>
+        <button id="cancelLogoBtn">Cancelar</button>
+    </section>
+
+</main>
+
+<footer>
+    Metamorfosis © 2025 — Versión Simple
+</footer>
+
+<script src="app.js"></script>
+
+<!-- PWA: Registro del service worker -->
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js")
+        .catch(err => console.error("SW error:", err));
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff;
+}
+
+/* =======================================
+   ENCABEZADO
+======================================= */
+header {
+    background: #b71c1c;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav button {
+    background: white;
+    color: #b71c1c;
+    border: none;
+    padding: 8px 12px;
+    margin: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+nav button.hide {
+    display: none;
+}
+
+/* =======================================
+   PANEL GENERAL
+======================================= */
+.panel {
+    max-width: 600px;
+    margin: auto;
+    padding: 15px;
+}
+
+input, textarea, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 7px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    height: 100px;
+}
+
+button {
+    background: #b71c1c;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #8c1616;
+}
+
+.hide {
+    display: none;
+}
+
+/* =======================================
+   POSTS
+======================================= */
+.post {
+    background: #f6f6f6;
+    padding: 12px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+}
+
+/* multimedia */
+.post img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.post video {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.post a.file-link {
+    display: inline-block;
+    padding: 8px 10px;
+    background: #b71c1c;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 12px;
+}
+
+.post a.file-link:hover {
+    background: #8c1616;
+}
+
+/* botón ver comentarios */
+.post button {
+    width: auto;
+    padding: 8px 14px;
+    margin-top: 12px;
+    background: #b71c1c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* =======================================
+   PIE DE PÁGINA
+======================================= */
+footer {
+    background: #eee;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* =======================================
+   PANEL COMENTARIOS
+======================================= */
+#commentsPanel {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+#commentsPanel textarea {
+    width: 100%;
+    height: 80px;
+}
+
+.comment {
+    background: white;
+    padding: 10px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+/* ==============================================
+   GESTIÓN DE USUARIAS (ETAPA 4)
+============================================== */
+#userList {
+    background: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.user-row {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+}
+
+.user-row strong {
+    color: #b71c1c;
+}
+
+.user-row button {
+    width: auto;
+    padding: 7px 10px;
+    margin-top: 10px;
+    background: #b71c1c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-row button:hover {
+    background: #8c1616;
+}
+
+/* ==========================================
+   🟠 BOTÓN FLOTANTE — ENVIAR MENSAJE
+========================================== */
+.floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #b71c1c;
+    color: white;
+    border: none;
+    width: 65px;
+    height: 65px;
+    font-size: 28px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 999;
+}
+
+.floating-btn:hover {
+    background: #8c1616;
+}
+
+/* ==========================================
+   🟣 PANEL ENVIAR MENSAJE PRIVADO (ESTUDIANTE)
+========================================== */
+#sendMessageSection {
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+}
+
+#sendMessageSection input[type="file"] {
+    padding: 4px;
+}
+
+/* ==========================================
+   🟢 BANDEJA DE ENTRADA ADMIN
+========================================== */
+#inboxSection {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-top: 15px;
+}
+
+.message-card {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.message-card.unread {
+    border-left: 5px solid #b71c1c;
+    background: #fff6f6;
+}
+
+.message-sender {
+    font-weight: bold;
+    color: #b71c1c;
+}
+
+.message-anon {
+    display: inline-block;
+    background: #333;
+    color: white;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.message-attachment {
+    background: #b71c1c;
+    color: white;
+    padding: 6px 8px;
+    border-radius: 5px;
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.message-attachment:hover {
+    background: #8c1616;
+}
+
+/* ==========================================
+   ⚫ PANEL EDITAR PERFIL (Nuevo)
+========================================== */
+#editProfileSection {
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-top: 15px;
+}
