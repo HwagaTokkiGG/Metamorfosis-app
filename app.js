@@ -532,6 +532,25 @@ function renderPosts() {
         btnComments.onclick = () => openComments(p.id);
         div.appendChild(btnComments);
 
+// 🔴 Botón eliminar (solo admin / moderadora)
+if (currentUser && (currentUser.role === "admin" || currentUser.role === "moderator")) {
+    const btnDelete = document.createElement("button");
+    btnDelete.innerText = "Eliminar post";
+    btnDelete.style.background = "#b30000";
+    btnDelete.style.color = "white";
+    btnDelete.style.marginLeft = "8px";
+
+    btnDelete.onclick = () => {
+        if (!confirm("¿Seguro que deseas eliminar esta publicación?")) return;
+
+        posts = posts.filter(post => post.id !== p.id);
+        save("posts", posts);
+        renderPosts();
+    };
+
+    div.appendChild(btnDelete);
+}
+
         container.appendChild(div);
     });
 }
@@ -859,13 +878,26 @@ function renderInbox() {
         `;
 
         if (msg.fileData) {
-            const att = document.createElement("a");
-            att.href = msg.fileData;
-            att.target = "_blank";
-            att.className = "message-attachment";
-            att.innerText = "Archivo adjunto";
-            card.appendChild(att);
-        }
+
+    if (msg.fileType && msg.fileType.startsWith("image/")) {
+        const img = document.createElement("img");
+        img.src = msg.fileData;
+        img.style.maxWidth = "100%";
+        img.style.marginTop = "10px";
+        img.style.borderRadius = "6px";
+        card.appendChild(img);
+    }
+
+    else if (msg.fileType && msg.fileType.startsWith("video/")) {
+        const video = document.createElement("video");
+        video.src = msg.fileData;
+        video.controls = true;
+        video.style.maxWidth = "100%";
+        video.style.marginTop = "10px";
+        video.style.borderRadius = "6px";
+        card.appendChild(video);
+    }
+}
 
         card.onclick = () => {
             msg.read = true;
